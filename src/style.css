@@ -12,3 +12,11 @@ html,body,#root{height:100%;min-height:0;overflow:hidden}
 .app>.previous,.app>.pagefooter{flex:0 0 auto}
 .app>.pagefooter{padding:9px 15px}
 @media(max-width:580px){.app>main{padding:20px 18px}.app>header{padding:14px 18px}.app>.pagefooter{padding:8px;font-size:10px}}
+
+/* Definitive chapter isolation: opaque single-screen layer; no transform-based
+   animation on the scroll container, which can cause stale mobile compositor frames. */
+.app{position:relative;isolation:isolate}
+.app>main{position:relative;z-index:1;background:#fff8fa;animation:none!important;transform:none!important;opacity:1!important;contain:layout paint;display:flex;flex-direction:column;overflow:auto;overscroll-behavior:contain;scroll-behavior:auto}
+.app>main::before{content:'';position:absolute;inset:0;background:transparent;pointer-events:none}
+.app>.ambient{z-index:0}
+.app>header,.app>.progress,.app>.previous,.app>.pagefooter{position:relative;z-index:2}
